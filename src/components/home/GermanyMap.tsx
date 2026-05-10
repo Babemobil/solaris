@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { ComposableMap, Geographies, Geography } = require("react-simple-maps");
 
-const GEO_URL =
-  "https://raw.githubusercontent.com/deldersveld/topojson/master/countries/germany/germany-states.json";
+const GEO_URL = "/germany-states.json";
 
 const stateInfo: Record<string, { sun: number; yield: number; savings: number; color: number }> = {
   "Schleswig-Holstein":         { sun: 950,  yield: 910,  savings: 1095, color: 0.47 },
@@ -118,7 +117,7 @@ export function GermanyMap() {
               <Geographies geography={GEO_URL}>
                 {({ geographies }: { geographies: any[] }) =>
                   geographies.map((geo: any) => {
-                    const name: string = geo.properties.NAME_1 ?? geo.properties.name ?? "";
+                    const name: string = geo.properties.name ?? "";
                     const data = stateInfo[name];
                     const isActive = active === name;
                     return (
