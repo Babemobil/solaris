@@ -43,7 +43,10 @@ export function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const navBg = scrolled
+  const lightHeroPages = ["/impressum", "/datenschutz", "/agb"];
+  const forceDark = lightHeroPages.some((p) => pathname.startsWith(p));
+
+  const navBg = scrolled || forceDark
     ? "bg-[#0A1F1C]/90 backdrop-blur-xl border-b border-white/8 shadow-[0_4px_32px_rgba(0,0,0,0.2)]"
     : "bg-transparent";
 
