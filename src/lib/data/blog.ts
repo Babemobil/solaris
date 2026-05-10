@@ -17,7 +17,7 @@ export const articles: Article[] = [
     category: "Förderung",
     date: "2025-05-01",
     readTime: 6,
-    image: "/images/smart-home-display.jpg",
+    image: "/images/smart-home-display.png",
     content: `## Was ändert sich 2025?
 
 Mit der Novelle des EEG dürfen Balkonkraftwerke nun bis zu 800 Watt einspeisen. Das macht die Mini-PV-Anlagen für Mieter deutlich attraktiver.
@@ -39,7 +39,7 @@ Einsteigersets mit 600–800 Watt gibt es ab ca. 400 Euro. Die Amortisation lieg
     category: "Technik",
     date: "2025-04-15",
     readTime: 8,
-    image: "/images/battery-storage.jpg",
+    image: "/images/battery-storage.png",
     content: `## Batteriespeicher: Chancen und Realität
 
 Ein Heimspeicher erhöht den Eigenverbrauch von ca. 30 % auf 70–80 %. Klingt verlockend — aber lohnt es sich wirklich?
@@ -65,7 +65,7 @@ Kosten Speicher (10 kWh): ca. 8.000–12.000 €. Amortisation: **10–15 Jahre*
     category: "Markt",
     date: "2025-03-20",
     readTime: 5,
-    image: "/images/hero-solarpark-sunrise.jpg",
+    image: "/images/hero-solarpark-sunrise.png",
     content: `## Sonnenstunden im Deutschlandvergleich
 
 Oft wird Deutschland unterschätzt. Mit 900–1.200 kWh/kWp Ertrag pro Jahr liegt Deutschland europaweit im guten Mittelfeld.
