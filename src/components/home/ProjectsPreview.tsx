@@ -10,7 +10,7 @@ export function ProjectsPreview() {
   const featured = projects.slice(0, 3);
 
   return (
-    <section className="section-white py-24 lg:py-32">
+    <section className="section-white py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-end justify-between mb-16">
           <motion.div

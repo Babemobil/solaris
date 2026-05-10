@@ -54,7 +54,7 @@ export function Testimonials() {
   const next = () => { setAuto(false); setActive((a) => (a + 1) % testimonials.length); };
 
   return (
-    <section className="section-dark py-24 lg:py-32 overflow-hidden">
+    <section className="section-dark py-12 md:py-24 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           className="mb-16"

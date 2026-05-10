@@ -35,7 +35,7 @@ export function SavingsCalculator() {
   }, [consumption, roofArea, withStorage]);
 
   return (
-    <section className="section-forest py-24 lg:py-32">
+    <section className="section-forest py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           className="mb-12"

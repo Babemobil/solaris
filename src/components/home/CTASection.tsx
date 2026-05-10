@@ -6,7 +6,7 @@ import { Phone, ArrowRight } from "lucide-react";
 
 export function CTASection() {
   return (
-    <section className="section-dark py-24 lg:py-32 relative overflow-hidden">
+    <section className="section-dark py-12 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Aurora background */}
       <div className="absolute inset-0 pointer-events-none">
         <div
