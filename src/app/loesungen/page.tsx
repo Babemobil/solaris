@@ -1,5 +1,4 @@
 import { SolutionsBento } from "@/components/home/SolutionsBento";
-import { GermanyMap } from "@/components/home/GermanyMap";
 import { CTASection } from "@/components/home/CTASection";
 import type { Metadata } from "next";
 
@@ -23,7 +22,6 @@ export default function LoesungenPage() {
         </div>
       </div>
       <SolutionsBento />
-      <GermanyMap />
       <CTASection />
     </>
   );

@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { StatsBar } from "@/components/home/StatsBar";
 import { SolutionsTeaser } from "@/components/home/SolutionsTeaser";
 import { EnergyFlow } from "@/components/home/EnergyFlow";
-import { GermanyMap } from "@/components/home/GermanyMap";
 import { ProjectsPreview } from "@/components/home/ProjectsPreview";
 import { SavingsCalculator } from "@/components/home/SavingsCalculator";
 import { Testimonials } from "@/components/home/Testimonials";
@@ -25,7 +24,6 @@ export default function HomePage() {
       <SolutionsTeaser />
       <SectionMarquee inverted />
       <EnergyFlow />
-      <GermanyMap />
       <ProjectsPreview />
       <SavingsCalculator />
       <Testimonials />
