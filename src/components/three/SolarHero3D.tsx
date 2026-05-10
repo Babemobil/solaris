@@ -6,53 +6,122 @@ import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 function SolarOrb({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const ringsRef = useRef<THREE.Group>(null);
+  const coreRef = useRef<THREE.Mesh>(null);
+  const raysLongRef = useRef<THREE.Group>(null);
+  const raysShortRef = useRef<THREE.Group>(null);
+  const glowLightRef = useRef<THREE.PointLight>(null);
 
   useFrame((state) => {
-    if (!meshRef.current || !ringsRef.current) return;
     const t = state.clock.elapsedTime;
-    meshRef.current.rotation.y = t * 0.15;
-    meshRef.current.rotation.x = Math.sin(t * 0.1) * 0.1;
-    ringsRef.current.rotation.z = t * 0.08;
-    ringsRef.current.rotation.x = 0.4 + mouse.current[1] * 0.15;
-    ringsRef.current.rotation.y = mouse.current[0] * 0.15;
+
+    if (coreRef.current) {
+      coreRef.current.rotation.y = t * 0.1;
+      coreRef.current.rotation.x = Math.sin(t * 0.07) * 0.04;
+    }
+
+    if (raysLongRef.current) {
+      raysLongRef.current.rotation.z = t * 0.035;
+      raysLongRef.current.rotation.x = mouse.current[1] * 0.08;
+      raysLongRef.current.rotation.y = mouse.current[0] * 0.08;
+    }
+
+    if (raysShortRef.current) {
+      raysShortRef.current.rotation.z = -t * 0.07;
+    }
+
+    if (glowLightRef.current) {
+      glowLightRef.current.intensity = 2.8 + Math.sin(t * 1.1) * 1.0;
+    }
   });
+
+  const startDist = 1.28;
+
+  const longRays = useMemo(
+    () =>
+      Array.from({ length: 8 }, (_, i) => ({
+        angle: (i / 8) * Math.PI * 2,
+        length: 1.1,
+      })),
+    []
+  );
+
+  const shortRays = useMemo(
+    () =>
+      Array.from({ length: 8 }, (_, i) => ({
+        angle: (i / 8) * Math.PI * 2 + Math.PI / 8,
+        length: 0.55,
+      })),
+    []
+  );
 
   return (
     <group>
-      {/* Core sun sphere */}
-      <mesh ref={meshRef}>
-        <icosahedronGeometry args={[1.2, 4]} />
+      {/* Sun core */}
+      <mesh ref={coreRef}>
+        <icosahedronGeometry args={[1.15, 5]} />
         <meshStandardMaterial
-          color="#4ADE80"
-          emissive="#1B3A36"
-          emissiveIntensity={0.4}
-          wireframe={false}
-          roughness={0.3}
-          metalness={0.7}
+          color="#FDE68A"
+          emissive="#FCD34D"
+          emissiveIntensity={1.4}
+          roughness={0.05}
+          metalness={0.0}
         />
       </mesh>
 
-      {/* Energy rings */}
-      <group ref={ringsRef}>
-        {[1.8, 2.3, 2.9].map((r, i) => (
-          <mesh key={r} rotation={[Math.PI / 2 + i * 0.3, 0, i * 0.5]}>
-            <torusGeometry args={[r, 0.015, 16, 120]} />
+      {/* Long rays — slow clockwise */}
+      <group ref={raysLongRef}>
+        {longRays.map(({ angle, length }, i) => (
+          <mesh
+            key={i}
+            position={[
+              Math.cos(angle) * (startDist + length / 2),
+              Math.sin(angle) * (startDist + length / 2),
+              0,
+            ]}
+            rotation={[0, 0, angle]}
+          >
+            <boxGeometry args={[0.055, length, 0.055]} />
             <meshStandardMaterial
-              color={i === 0 ? "#4ADE80" : i === 1 ? "#FCD34D" : "#86EFAC"}
-              emissive={i === 0 ? "#4ADE80" : "#FCD34D"}
-              emissiveIntensity={0.6}
+              color="#FCD34D"
+              emissive="#FCD34D"
+              emissiveIntensity={1.2}
               transparent
-              opacity={0.8 - i * 0.2}
+              opacity={0.9}
             />
           </mesh>
         ))}
       </group>
 
-      {/* Ambient glow */}
-      <pointLight color="#4ADE80" intensity={2} distance={8} />
-      <pointLight color="#FCD34D" intensity={0.5} distance={6} position={[2, 1, 0]} />
+      {/* Short rays — faster counter-clockwise */}
+      <group ref={raysShortRef}>
+        {shortRays.map(({ angle, length }, i) => (
+          <mesh
+            key={i}
+            position={[
+              Math.cos(angle) * (startDist + length / 2),
+              Math.sin(angle) * (startDist + length / 2),
+              0,
+            ]}
+            rotation={[0, 0, angle]}
+          >
+            <boxGeometry args={[0.032, length, 0.032]} />
+            <meshStandardMaterial
+              color="#86EFAC"
+              emissive="#4ADE80"
+              emissiveIntensity={1.0}
+              transparent
+              opacity={0.75}
+            />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Pulsating core glow */}
+      <pointLight ref={glowLightRef} color="#FCD34D" intensity={2.8} distance={10} />
+      {/* Green accent fill light */}
+      <pointLight color="#4ADE80" intensity={1.0} distance={7} position={[2.5, 1.5, 1]} />
+      {/* Warm back light for depth */}
+      <pointLight color="#F97316" intensity={0.5} distance={5} position={[-1.5, -1, 0.5]} />
     </group>
   );
 }
@@ -78,13 +147,12 @@ function ParticleField() {
 
   return (
     <Points ref={ref} positions={positions}>
-      <PointMaterial size={0.03} color="#4ADE80" transparent opacity={0.6} sizeAttenuation />
+      <PointMaterial size={0.03} color="#FCD34D" transparent opacity={0.4} sizeAttenuation />
     </Points>
   );
 }
 
 function Scene({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) {
-  const { viewport } = useThree();
   useFrame((state) => {
     state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, mouse.current[0] * 0.3, 0.05);
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, mouse.current[1] * 0.2, 0.05);
@@ -92,8 +160,8 @@ function Scene({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) {
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[5, 5, 5]} intensity={0.8} color="#F0F4F2" />
+      <ambientLight intensity={0.2} />
+      <directionalLight position={[5, 5, 5]} intensity={0.5} color="#FDE68A" />
       <SolarOrb mouse={mouse} />
       <ParticleField />
     </>
