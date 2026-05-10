@@ -1,7 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { StatsBar } from "@/components/home/StatsBar";
-import { SolutionsBento } from "@/components/home/SolutionsBento";
-import { Scrollytelling } from "@/components/home/Scrollytelling";
+import { SolutionsTeaser } from "@/components/home/SolutionsTeaser";
 import { EnergyFlow } from "@/components/home/EnergyFlow";
 import { GermanyMap } from "@/components/home/GermanyMap";
 import { ProjectsPreview } from "@/components/home/ProjectsPreview";
@@ -23,8 +22,7 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <SectionMarquee />
-      <SolutionsBento />
-      <Scrollytelling />
+      <SolutionsTeaser />
       <SectionMarquee inverted />
       <EnergyFlow />
       <GermanyMap />

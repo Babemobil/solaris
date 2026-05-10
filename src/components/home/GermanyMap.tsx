@@ -113,7 +113,9 @@ export function GermanyMap() {
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{ scale: 2600, center: [10.4, 51.2] }}
-              className="w-full max-w-sm mx-auto"
+              width={520}
+              height={680}
+              className="w-full max-w-xs mx-auto"
               style={{ height: "auto" }}
             >
               <Geographies geography={GEO_URL}>

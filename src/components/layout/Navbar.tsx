@@ -8,10 +8,9 @@ import { Menu, X, Sun } from "lucide-react";
 
 const navLinks = [
   { href: "/loesungen", label: "Lösungen", children: [
-    { href: "/loesungen/privat", label: "Privat" },
-    { href: "/loesungen/gewerbe", label: "Gewerbe" },
-    { href: "/loesungen/speicher", label: "Speicher" },
+    { href: "/loesungen/solar", label: "Solar" },
     { href: "/loesungen/wind", label: "Windkraft" },
+    { href: "/loesungen/speicher", label: "Speicher" },
   ]},
   { href: "/projekte", label: "Projekte" },
   { href: "/ueber-uns", label: "Über uns" },
