@@ -33,7 +33,7 @@ export function SolutionPage({
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-end pb-16 section-dark pt-24">
+      <section className="relative min-h-[60vh] flex items-end pb-16 section-dark pt-20 md:pt-24">
         <div className="absolute inset-0">
           <Image src={heroImage} alt={title} fill className="object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F1C] via-[#0A1F1C]/70 to-transparent" />
@@ -65,7 +65,7 @@ export function SolutionPage({
       </section>
 
       {/* Features */}
-      <section className="section-light py-24">
+      <section className="section-light py-12 md:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f, i) => (
