@@ -27,8 +27,10 @@ const stateInfo: Record<string, { sun: number; yield: number; savings: number; c
 };
 
 const getColor = (strength: number) => {
-  const g = Math.round(31 + strength * 150);
-  return `rgb(10,${g},28)`;
+  const r = Math.round(10  + strength * 64);
+  const g = Math.round(50  + strength * 172);
+  const b = Math.round(30  + strength * 98);
+  return `rgb(${r},${g},${b})`;
 };
 
 export function GermanyMap() {
