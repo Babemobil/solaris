@@ -1,8 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { Sun, Mail, Phone, MapPin, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Sun, Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+  </svg>
+);
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+  </svg>
+);
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+  </svg>
+);
 
 const footerLinks = {
   Lösungen: [
@@ -88,9 +104,9 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             {[
-              { href: "#", icon: Instagram, label: "Instagram" },
-              { href: "#", icon: Linkedin, label: "LinkedIn" },
-              { href: "#", icon: Twitter, label: "Twitter" },
+              { href: "#", icon: InstagramIcon, label: "Instagram" },
+              { href: "#", icon: LinkedinIcon, label: "LinkedIn" },
+              { href: "#", icon: XIcon, label: "X/Twitter" },
             ].map(({ href, icon: Icon, label }) => (
               <motion.a
                 key={label}
