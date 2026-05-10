@@ -50,11 +50,7 @@ const solutions = [
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.12, ease: [0.19, 1, 0.22, 1] },
-  }),
+  visible: { opacity: 1, y: 0 },
 };
 
 export function SolutionsBento() {
@@ -83,11 +79,10 @@ export function SolutionsBento() {
           {/* Large card */}
           <motion.div
             className="lg:col-span-2 lg:row-span-2"
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            custom={0}
+            transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
           >
             <BentoCard item={solutions[0]} large />
           </motion.div>
@@ -96,11 +91,10 @@ export function SolutionsBento() {
           {solutions.slice(1).map((item, i) => (
             <motion.div
               key={item.href}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              custom={i + 1}
+              transition={{ duration: 0.6, delay: (i + 1) * 0.12, ease: [0.19, 1, 0.22, 1] }}
             >
               <BentoCard item={item} large={false} />
             </motion.div>

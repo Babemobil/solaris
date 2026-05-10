@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const steps = [
+const steps: { step: string; title: string; desc: string; icon: string; color: string; active?: boolean }[] = [
   {
     step: "01",
     title: "Leeres Dach",
@@ -160,7 +160,7 @@ function ScrollyViz({
   steps,
 }: {
   scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
-  steps: typeof steps;
+  steps: { step: string; title: string; desc: string; icon: string; color: string; active?: boolean }[];
 }) {
   return (
     <div className="relative w-80 h-80">
