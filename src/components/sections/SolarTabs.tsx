@@ -71,12 +71,11 @@ export function SolarTabs() {
   const [activeTab, setActiveTab] = useState("privat");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const tab = tabs.find((t) => t.id === activeTab)!;
+  const tab = tabs.find((t) => t.id === activeTab) ?? tabs[0];;
 
   return (
     <section className="section-light py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Tab buttons */}
         <div className="flex gap-2 mb-12 bg-[#E8EDEB] rounded-2xl p-1.5 w-fit">
           {tabs.map((t) => (
             <button
@@ -105,7 +104,6 @@ export function SolarTabs() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
           >
-            {/* Features */}
             <div className="mb-16">
               <h3 className="text-2xl font-black text-[#0A1F1C] mb-8">Leistungen</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -130,7 +128,6 @@ export function SolarTabs() {
               </div>
             </div>
 
-            {/* Specs */}
             <div className="mb-16">
               <h3 className="text-2xl font-black text-[#0A1F1C] mb-8">Technische Daten</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -143,7 +140,6 @@ export function SolarTabs() {
               </div>
             </div>
 
-            {/* FAQ */}
             <div>
               <h3 className="text-2xl font-black text-[#0A1F1C] mb-8">Häufige Fragen</h3>
               <div className="space-y-3 max-w-3xl">
@@ -156,23 +152,18 @@ export function SolarTabs() {
                     >
                       <span className="font-semibold text-[#0A1F1C] pr-4">{faq.q}</span>
                       <ChevronDown
-                        className={`w-5 h-5 flex-shrink-0 transition-transform duration-200`}
-                        style={{ color: tab.accentColor, transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)" }}
+                        className={`w-5 h-5 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
+                        style={{ color: tab.accentColor }}
                       />
                     </button>
-                    <AnimatePresence>
-                      {openFaq === i && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-5 pb-5 text-[#0A1F1C]/60 text-sm leading-relaxed">{faq.a}</div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    <motion.div
+                      animate={{ height: openFaq === i ? "auto" : 0, opacity: openFaq === i ? 1 : 0 }}
+                      initial={false}
+                      transition={{ duration: 0.2 }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="px-5 pb-5 text-[#0A1F1C]/60 text-sm leading-relaxed">{faq.a}</div>
+                    </motion.div>
                   </div>
                 ))}
               </div>

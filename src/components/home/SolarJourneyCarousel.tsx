@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -22,16 +22,24 @@ export function SolarJourneyCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     const measure = () => {
       if (containerRef.current) {
         const w = containerRef.current.offsetWidth;
         setCardWidth(Math.min(600, Math.round(w * 0.82)));
       }
     };
+    const debouncedMeasure = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(measure, 80);
+    };
     measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    window.addEventListener("resize", debouncedMeasure);
+    return () => {
+      window.removeEventListener("resize", debouncedMeasure);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const prev = useCallback(() => setActive((i) => Math.max(0, i - 1)), []);
@@ -108,7 +116,6 @@ export function SolarJourneyCarousel() {
           })}
         </div>
 
-        {/* Navigation */}
         <div className="flex items-center justify-center gap-5 mt-8">
           <motion.button
             onClick={prev}
