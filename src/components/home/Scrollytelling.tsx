@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const steps: { step: string; title: string; desc: string; icon: string; color: string }[] = [
@@ -14,6 +14,63 @@ const steps: { step: string; title: string; desc: string; icon: string; color: s
 ];
 
 export function Scrollytelling() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  if (isMobile) {
+    return <MobileSteps />;
+  }
+
+  return <DesktopScrollytelling />;
+}
+
+function MobileSteps() {
+  return (
+    <section id="wie-es-funktioniert" className="relative section-dark py-20 px-6">
+      <div className="max-w-xl mx-auto">
+        <div className="mb-10">
+          <span className="text-[#4ADE80] text-sm font-mono uppercase tracking-[0.2em]">So funktioniert es</span>
+          <h2 className="text-[clamp(2rem,8vw,3rem)] font-black text-[#F0F4F2] mt-3">
+            So entsteht deine<br />
+            <span className="text-gradient-leaf">Solaranlage</span>
+          </h2>
+        </div>
+        <div className="space-y-8">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.step}
+              className="flex gap-4 items-start"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: i * 0.06 }}
+            >
+              <div
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-base border-2"
+                style={{ borderColor: step.color, color: step.color }}
+              >
+                {step.icon}
+              </div>
+              <div>
+                <span className="text-xs font-mono text-[#F0F4F2]/30">Step {step.step}</span>
+                <h3 className="text-[#F0F4F2] font-bold text-lg">{step.title}</h3>
+                <p className="text-[#F0F4F2]/50 text-sm leading-relaxed">{step.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DesktopScrollytelling() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -100,10 +157,8 @@ function ProgressArc({ scrollYProgress }: { scrollYProgress: ReturnType<typeof u
   return (
     <div className="relative w-72 h-72">
       <svg viewBox="0 0 200 200" className="w-full h-full" fill="none">
-        {/* House */}
         <path d="M100 20 L180 80 L20 80 Z" stroke="#1B3A36" strokeWidth="2" fill="#0A1F1C" />
         <rect x="40" y="80" width="120" height="100" stroke="#1B3A36" strokeWidth="2" fill="#0A1F1C" />
-        {/* Panels fade in */}
         {[0,1,2,3,4,5].map((i) => (
           <motion.rect
             key={i}
@@ -114,7 +169,6 @@ function ProgressArc({ scrollYProgress }: { scrollYProgress: ReturnType<typeof u
           />
         ))}
       </svg>
-      {/* Progress ring */}
       <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 200 200">
         <circle cx="100" cy="100" r="90" stroke="#1B3A36" strokeWidth="2" fill="none" />
         <motion.circle
