@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import Link from "next/link";
 import { ArrowDown, Shield, Award, Zap } from "lucide-react";
 import dynamic from "next/dynamic";
+import { WebGLErrorBoundary } from "@/components/three/WebGLErrorBoundary";
 
 const SolarHero3D = dynamic(
   () => import("@/components/three/SolarHero3D").then((m) => m.SolarHero3D),
@@ -199,7 +200,9 @@ export function Hero() {
                 </div>
               </div>
             ) : (
-              <SolarHero3D mouse={mouse} />
+              <WebGLErrorBoundary>
+                <SolarHero3D mouse={mouse} />
+              </WebGLErrorBoundary>
             )}
           </motion.div>
         </div>
