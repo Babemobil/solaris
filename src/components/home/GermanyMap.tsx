@@ -1,53 +1,58 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const bundeslaender = [
-  { id: "by", name: "Bayern", sun: 1180, yield: 1150, savings: 1380, path: "M 230 280 L 310 270 L 340 310 L 330 370 L 270 390 L 230 360 L 210 320 Z", labelX: 270, labelY: 335, color: 0.95 },
-  { id: "bw", name: "Baden-Württemberg", sun: 1150, yield: 1100, savings: 1320, path: "M 185 290 L 230 280 L 230 360 L 210 390 L 175 380 L 160 350 L 165 310 Z", labelX: 195, labelY: 340, color: 0.9 },
-  { id: "he", name: "Hessen", sun: 1050, yield: 1000, savings: 1200, path: "M 185 225 L 225 215 L 240 240 L 230 280 L 185 290 L 165 270 L 175 245 Z", labelX: 205, labelY: 258, color: 0.7 },
-  { id: "rp", name: "Rheinland-Pfalz", sun: 1030, yield: 990, savings: 1190, path: "M 130 260 L 185 225 L 175 245 L 165 270 L 165 310 L 140 320 L 115 300 Z", labelX: 153, labelY: 280, color: 0.65 },
-  { id: "saar", name: "Saarland", sun: 1020, yield: 980, savings: 1175, path: "M 130 260 L 150 250 L 155 270 L 140 280 L 115 270 Z", labelX: 135, labelY: 262, color: 0.62 },
-  { id: "nrw", name: "NRW", sun: 1010, yield: 970, savings: 1165, path: "M 105 175 L 175 165 L 190 200 L 185 225 L 130 260 L 100 245 L 90 210 Z", labelX: 143, labelY: 210, color: 0.6 },
-  { id: "th", name: "Thüringen", sun: 1060, yield: 1010, savings: 1210, path: "M 225 215 L 280 205 L 295 230 L 290 260 L 240 265 L 230 280 L 230 260 Z", labelX: 262, labelY: 240, color: 0.72 },
-  { id: "sn", name: "Sachsen", sun: 1070, yield: 1020, savings: 1225, path: "M 280 205 L 340 195 L 360 220 L 345 255 L 310 270 L 295 230 Z", labelX: 320, labelY: 233, color: 0.75 },
-  { id: "st", name: "Sachsen-Anhalt", sun: 1040, yield: 995, savings: 1195, path: "M 245 155 L 310 145 L 330 175 L 320 205 L 280 205 L 260 185 Z", labelX: 285, labelY: 178, color: 0.68 },
-  { id: "bb", name: "Brandenburg", sun: 1040, yield: 995, savings: 1195, path: "M 310 120 L 375 115 L 400 145 L 390 185 L 350 200 L 330 175 L 310 145 Z", labelX: 355, labelY: 158, color: 0.68 },
-  { id: "be", name: "Berlin", sun: 1040, yield: 995, savings: 1195, path: "M 340 155 L 360 153 L 360 175 L 340 175 Z", labelX: 350, labelY: 165, color: 0.68 },
-  { id: "mv", name: "Mecklenburg-Vorpommern", sun: 990, yield: 950, savings: 1140, path: "M 245 80 L 375 70 L 400 100 L 400 130 L 375 115 L 310 120 L 260 105 Z", labelX: 320, labelY: 98, color: 0.55 },
-  { id: "hh", name: "Hamburg", sun: 960, yield: 920, savings: 1105, path: "M 200 100 L 220 95 L 225 115 L 205 118 Z", labelX: 213, labelY: 108, color: 0.5 },
-  { id: "sh", name: "Schleswig-Holstein", sun: 950, yield: 910, savings: 1095, path: "M 175 60 L 250 50 L 260 80 L 245 80 L 220 95 L 200 100 L 180 85 Z", labelX: 215, labelY: 73, color: 0.47 },
-  { id: "hb", name: "Bremen", sun: 965, yield: 925, savings: 1110, path: "M 168 125 L 183 122 L 185 135 L 170 137 Z", labelX: 177, labelY: 130, color: 0.52 },
-  { id: "ni", name: "Niedersachsen", sun: 985, yield: 945, savings: 1135, path: "M 105 110 L 200 100 L 220 95 L 245 80 L 260 105 L 245 155 L 200 165 L 175 165 L 105 175 L 90 155 Z", labelX: 180, labelY: 140, color: 0.53 },
+  { id: "sh",   name: "Schleswig-Holstein",        sun: 950,  yield: 910,  savings: 1095, labelX: 148, labelY: 42,
+    path: "M 94,0 L 162,0 L 208,22 L 200,62 L 162,78 L 140,92 L 107,78 L 94,44 Z", color: 0.47 },
+  { id: "hh",   name: "Hamburg",                   sun: 960,  yield: 920,  savings: 1105, labelX: 178, labelY: 88,
+    path: "M 162,78 L 188,78 L 188,98 L 162,98 Z", color: 0.50 },
+  { id: "mv",   name: "Mecklenburg-Vorpommern",    sun: 990,  yield: 950,  savings: 1140, labelX: 295, labelY: 38,
+    path: "M 162,0 L 390,0 L 390,62 L 258,68 L 200,62 L 208,22 Z", color: 0.55 },
+  { id: "ni",   name: "Niedersachsen",             sun: 985,  yield: 945,  savings: 1135, labelX: 130, labelY: 138,
+    path: "M 14,82 L 107,78 L 140,92 L 162,98 L 188,98 L 208,88 L 258,92 L 252,158 L 202,176 L 158,176 L 82,180 L 44,182 L 14,148 Z", color: 0.53 },
+  { id: "hb",   name: "Bremen",                   sun: 965,  yield: 925,  savings: 1110, labelX: 118, labelY: 104,
+    path: "M 106,98 L 130,95 L 132,114 L 107,116 Z", color: 0.52 },
+  { id: "bb",   name: "Brandenburg",              sun: 1040, yield: 995,  savings: 1195, labelX: 322, labelY: 132,
+    path: "M 258,68 L 390,62 L 400,172 L 358,208 L 308,198 L 282,168 L 252,158 L 258,92 Z", color: 0.68 },
+  { id: "be",   name: "Berlin",                   sun: 1040, yield: 995,  savings: 1195, labelX: 342, labelY: 136,
+    path: "M 328,122 L 354,122 L 354,146 L 328,146 Z", color: 0.68 },
+  { id: "st",   name: "Sachsen-Anhalt",           sun: 1040, yield: 995,  savings: 1195, labelX: 228, labelY: 168,
+    path: "M 208,88 L 252,158 L 282,168 L 268,212 L 218,218 L 188,188 L 182,158 Z", color: 0.68 },
+  { id: "nrw",  name: "NRW",                      sun: 1010, yield: 970,  savings: 1165, labelX: 92,  labelY: 212,
+    path: "M 14,148 L 82,180 L 158,176 L 166,208 L 128,252 L 78,268 L 28,248 L 14,208 Z", color: 0.60 },
+  { id: "he",   name: "Hessen",                   sun: 1050, yield: 1000, savings: 1200, labelX: 178, labelY: 228,
+    path: "M 158,176 L 202,176 L 218,218 L 198,268 L 168,282 L 146,262 L 128,252 L 166,208 Z", color: 0.70 },
+  { id: "th",   name: "Thüringen",                sun: 1060, yield: 1010, savings: 1210, labelX: 238, labelY: 256,
+    path: "M 218,218 L 268,212 L 282,262 L 266,298 L 218,298 L 193,278 L 198,268 Z", color: 0.72 },
+  { id: "sn",   name: "Sachsen",                  sun: 1070, yield: 1020, savings: 1225, labelX: 338, labelY: 248,
+    path: "M 282,168 L 308,198 L 358,208 L 400,172 L 420,268 L 378,302 L 308,308 L 266,298 L 282,262 L 268,212 Z", color: 0.75 },
+  { id: "rp",   name: "Rheinland-Pfalz",          sun: 1030, yield: 990,  savings: 1190, labelX: 48,  labelY: 296,
+    path: "M 28,248 L 78,268 L 68,332 L 54,348 L 18,328 L 14,272 Z", color: 0.65 },
+  { id: "saar", name: "Saarland",                 sun: 1020, yield: 980,  savings: 1175, labelX: 72,  labelY: 340,
+    path: "M 68,332 L 88,318 L 96,340 L 78,356 L 54,348 Z", color: 0.62 },
+  { id: "bw",   name: "Baden-Württemberg",        sun: 1150, yield: 1100, savings: 1320, labelX: 118, labelY: 348,
+    path: "M 78,268 L 128,252 L 146,262 L 168,282 L 180,332 L 170,408 L 126,438 L 86,432 L 56,388 L 54,348 L 68,332 Z", color: 0.90 },
+  { id: "by",   name: "Bayern",                   sun: 1180, yield: 1150, savings: 1380, labelX: 288, labelY: 398,
+    path: "M 168,282 L 193,278 L 218,298 L 266,298 L 308,308 L 378,302 L 420,268 L 420,392 L 348,498 L 178,498 L 126,438 L 170,408 L 180,332 Z", color: 0.95 },
 ];
 
 const getColor = (strength: number) => {
-  const r = Math.round(10 + strength * 0);
   const g = Math.round(31 + strength * 150);
-  const b = Math.round(28 + strength * 10);
-  return `rgb(${r},${g},${b})`;
+  return `rgb(10,${g},28)`;
 };
 
 export function GermanyMap() {
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const activeState = bundeslaender.find((b) => b.id === active);
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  const activeId = isMobile ? selected : hovered;
-  const hoveredState = bundeslaender.find((b) => b.id === activeId);
+  const toggle = (id: string) => setActive(a => a === id ? null : id);
 
   return (
     <section className="section-light py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left — content */}
           <div>
             <motion.div
@@ -64,35 +69,34 @@ export function GermanyMap() {
                 <span className="text-[#1B3A36]">Ihr Potenzial</span>
               </h2>
               <p className="text-[#0A1F1C]/60 leading-relaxed mb-8">
-                Deutschland hat mehr Sonnenpotenzial als viele denken. Hover über Ihr Bundesland und entdecken Sie das Solar-Potenzial in Ihrer Region.
+                Deutschland hat mehr Sonnenpotenzial als viele denken. Tippen Sie auf Ihr Bundesland und entdecken Sie das Solar-Potenzial in Ihrer Region.
               </p>
             </motion.div>
 
-            {/* Data card */}
             <AnimatePresence mode="wait">
-              {hoveredState ? (
+              {activeState ? (
                 <motion.div
-                  key={hoveredState.id}
+                  key={activeState.id}
                   className="rounded-2xl p-6 bg-[#0A1F1C] text-[#F0F4F2]"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h3 className="text-xl font-bold text-[#4ADE80] mb-4">{hoveredState.name}</h3>
+                  <h3 className="text-xl font-bold text-[#4ADE80] mb-4">{activeState.name}</h3>
                   <div className="grid grid-cols-3 gap-4">
                     {[
-                      { label: "Sonnenstunden", value: `${hoveredState.sun} h/Jahr`, color: "#FCD34D" },
-                      { label: "Ertrag/kWp", value: `${hoveredState.yield} kWh`, color: "#4ADE80" },
-                      { label: "Ersparnis/Jahr", value: `~${hoveredState.savings} €`, color: "#86EFAC" },
+                      { label: "Sonnenstunden", value: `${activeState.sun} h/Jahr`, color: "#FCD34D" },
+                      { label: "Ertrag/kWp",   value: `${activeState.yield} kWh`,  color: "#4ADE80" },
+                      { label: "Ersparnis/Jahr",value: `~${activeState.savings} €`, color: "#86EFAC" },
                     ].map(({ label, value, color }) => (
                       <div key={label}>
                         <p className="text-[#F0F4F2]/40 text-xs mb-1">{label}</p>
-                        <p className="font-mono font-bold text-lg" style={{ color }}>{value}</p>
+                        <p className="font-mono font-bold text-base" style={{ color }}>{value}</p>
                       </div>
                     ))}
                   </div>
-                  <p className="text-[#F0F4F2]/40 text-xs mt-4">
+                  <p className="text-[#F0F4F2]/30 text-xs mt-4">
                     *Schätzwerte für 10 kWp Anlage, Südausrichtung, 0,32 €/kWh
                   </p>
                 </motion.div>
@@ -104,7 +108,7 @@ export function GermanyMap() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {isMobile ? "Tippen Sie auf ein Bundesland um das Solar-Potenzial zu sehen" : "Hover über ein Bundesland um das Solar-Potenzial zu sehen"}
+                  Bundesland antippen um Solar-Potenzial zu sehen
                 </motion.div>
               )}
             </AnimatePresence>
@@ -118,36 +122,49 @@ export function GermanyMap() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <svg viewBox="60 40 370 380" className="w-full max-w-md mx-auto">
+            <svg viewBox="0 0 420 498" className="w-full max-w-sm mx-auto touch-manipulation">
               {bundeslaender.map((land, i) => (
                 <motion.path
                   key={land.id}
                   d={land.path}
-                  fill={hovered === land.id ? "#4ADE80" : getColor(land.color)}
+                  fill={active === land.id ? "#4ADE80" : getColor(land.color)}
                   stroke="#F0F4F2"
                   strokeWidth="1.5"
-                  className="cursor-pointer transition-colors duration-200"
-                  onHoverStart={() => !isMobile && setHovered(land.id)}
-                  onHoverEnd={() => !isMobile && setHovered(null)}
-                  onTap={() => isMobile && setSelected(s => s === land.id ? null : land.id)}
+                  className="cursor-pointer"
+                  onClick={() => toggle(land.id)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.05 + i * 0.04, duration: 0.4 }}
-                  whileHover={{ scale: 1.02, originX: "50%", originY: "50%" }}
+                  transition={{ delay: 0.03 + i * 0.03, duration: 0.3 }}
+                  whileHover={{ fill: active === land.id ? "#4ADE80" : "#86EFAC" }}
                 />
               ))}
+              {/* State labels for larger viewports */}
+              {bundeslaender
+                .filter(l => !["hh","hb","be","saar"].includes(l.id))
+                .map(land => (
+                  <text
+                    key={`label-${land.id}`}
+                    x={land.labelX}
+                    y={land.labelY}
+                    fontSize="8"
+                    fontFamily="monospace"
+                    fill={active === land.id ? "#0A1F1C" : "#F0F4F2"}
+                    textAnchor="middle"
+                    pointerEvents="none"
+                    opacity="0.7"
+                  >
+                    {land.id.toUpperCase()}
+                  </text>
+                ))
+              }
             </svg>
 
             {/* Legend */}
             <div className="flex items-center gap-3 mt-4 justify-center">
-              <span className="text-xs text-[#0A1F1C]/50">Weniger Potenzial</span>
+              <span className="text-xs text-[#0A1F1C]/50">Weniger</span>
               <div className="flex gap-1">
                 {[0.3, 0.5, 0.7, 0.85, 1].map((v) => (
-                  <div
-                    key={v}
-                    className="w-6 h-3 rounded"
-                    style={{ background: getColor(v) }}
-                  />
+                  <div key={v} className="w-6 h-3 rounded" style={{ background: getColor(v) }} />
                 ))}
               </div>
               <span className="text-xs text-[#0A1F1C]/50">Mehr Potenzial</span>
