@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const bundeslaender = [
@@ -31,10 +31,21 @@ const getColor = (strength: number) => {
 
 export function GermanyMap() {
   const [hovered, setHovered] = useState<string | null>(null);
-  const hoveredState = bundeslaender.find((b) => b.id === hovered);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const activeId = isMobile ? selected : hovered;
+  const hoveredState = bundeslaender.find((b) => b.id === activeId);
 
   return (
-    <section className="section-light py-24 lg:py-32">
+    <section className="section-light py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left — content */}
@@ -93,7 +104,7 @@ export function GermanyMap() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  Hover über ein Bundesland um das Solar-Potenzial zu sehen
+                  {isMobile ? "Tippen Sie auf ein Bundesland um das Solar-Potenzial zu sehen" : "Hover über ein Bundesland um das Solar-Potenzial zu sehen"}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -116,8 +127,9 @@ export function GermanyMap() {
                   stroke="#F0F4F2"
                   strokeWidth="1.5"
                   className="cursor-pointer transition-colors duration-200"
-                  onHoverStart={() => setHovered(land.id)}
-                  onHoverEnd={() => setHovered(null)}
+                  onHoverStart={() => !isMobile && setHovered(land.id)}
+                  onHoverEnd={() => !isMobile && setHovered(null)}
+                  onTap={() => isMobile && setSelected(s => s === land.id ? null : land.id)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.05 + i * 0.04, duration: 0.4 }}

@@ -27,7 +27,7 @@ function LiveCO2() {
   }, []);
 
   return (
-    <div className="flex items-center gap-4 px-8 py-6 border-l border-white/10">
+    <div className="flex items-center gap-4 px-6 py-5 md:px-8 md:py-6 md:border-l border-t md:border-t-0 border-white/10 col-span-2 md:col-span-1">
       <div className="flex items-center gap-2">
         <span className="pulse-dot w-2 h-2 rounded-full bg-[#4ADE80] inline-block" />
         <span className="text-[#F0F4F2]/50 text-xs font-mono uppercase tracking-widest">Live</span>
@@ -48,9 +48,9 @@ export function StatsBar() {
   return (
     <div ref={ref} className="section-forest border-y border-white/8">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-wrap items-center divide-x divide-white/10">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap md:items-center md:divide-x md:divide-white/10">
           {stats.map(({ value, suffix, label, color }) => (
-            <div key={label} className="flex-1 min-w-[140px] px-8 py-6">
+            <div key={label} className="px-6 py-5 md:flex-1 md:px-8 md:py-6 border-b md:border-b-0 border-r md:border-r-0 border-white/10 last:border-r-0">
               <p
                 className="font-mono font-black text-3xl lg:text-4xl mb-1"
                 style={{ color }}
