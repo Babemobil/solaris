@@ -55,7 +55,7 @@ const cardVariants = {
 
 export function SolutionsBento() {
   return (
-    <section className="section-light py-24 lg:py-32">
+    <section className="section-light py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
