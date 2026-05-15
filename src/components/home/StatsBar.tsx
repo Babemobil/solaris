@@ -19,7 +19,7 @@ function LiveCO2() {
       const dayStart = new Date();
       dayStart.setHours(0, 0, 0, 0);
       const secs = (Date.now() - dayStart.getTime()) / 1000;
-      setKg(Math.floor(secs * 0.00208 * 1000));
+      setKg(Math.floor(secs * 0.38));
     };
     calc();
     const id = setInterval(calc, 1000);

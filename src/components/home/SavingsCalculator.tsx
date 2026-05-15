@@ -12,15 +12,15 @@ export function SavingsCalculator() {
   const results = useMemo(() => {
     const kwp = Math.min((roofArea * 0.2), 20); // ~0.2 kWp/m²
     const annualProduction = kwp * 1050; // kWh/year, avg Germany
-    const selfConsumptionRate = withStorage ? 0.75 : 0.35;
+    const selfConsumptionRate = withStorage ? 0.70 : 0.35;
     const selfConsumed = Math.min(annualProduction * selfConsumptionRate, consumption);
     const electricityPrice = 0.32;
     const annualSavings = selfConsumed * electricityPrice;
     const feedIn = (annualProduction - selfConsumed) * 0.082; // Einspeisevergütung
     const totalAnnual = annualSavings + feedIn;
-    const investCost = kwp * 1400 + (withStorage ? 9000 : 0);
+    const investCost = kwp * 1200 + (withStorage ? 9000 : 0);
     const amortisation = investCost / totalAnnual;
-    const co2Annual = annualProduction * 0.485; // kg CO₂/kWh Germany mix
+    const co2Annual = annualProduction * 0.434; // kg CO₂/kWh Germany mix (UBA 2023)
 
     return {
       kwp: kwp.toFixed(1),

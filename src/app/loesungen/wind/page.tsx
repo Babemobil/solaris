@@ -26,7 +26,7 @@ export default function WindPage() {
         { label: "Onshore Kapazität", value: "500 kW – 6 MW/Turbine" },
         { label: "Rotordurchmesser", value: "bis 175 m" },
         { label: "Nabenhöhe", value: "80 – 175 m" },
-        { label: "Volllaststunden/Jahr", value: "1.800 – 3.500 h" },
+        { label: "Volllaststunden/Jahr", value: "1.800 – 3.000 h" },
         { label: "Offshore Kapazität", value: "3 – 15 MW/Turbine" },
         { label: "Lebensdauer", value: "25 Jahre" },
         { label: "CO₂ Amortisation", value: "< 1 Jahr" },

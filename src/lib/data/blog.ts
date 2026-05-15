@@ -25,7 +25,7 @@ Mit der Novelle des EEG dürfen Balkonkraftwerke nun bis zu 800 Watt einspeisen.
 ### Vorteile der neuen Regelung
 
 - **Höhere Einspeiseleistung**: 800 Watt statt bisher 600 Watt
-- **Vereinfachte Anmeldung**: Nur noch beim Netzbetreiber, kein Eintrag ins Marktstammdatenregister
+- **Vereinfachte Anmeldung**: Nur noch beim Netzbetreiber, Registrierung im Marktstammdatenregister (MaStR) bleibt Pflicht, Verfahren vereinfacht
 - **Mehr Modelle verfügbar**: Faltbare und leistungsstarke Panels für Balkone
 
 ### Was kostet ein Balkonkraftwerk?
@@ -46,9 +46,9 @@ Ein Heimspeicher erhöht den Eigenverbrauch von ca. 30 % auf 70–80 %. Klingt v
 
 ### Rechenbeispiel
 
-Eine 5-kWh-PV-Anlage ohne Speicher liefert Eigenverbrauch von 1.500 kWh/Jahr. Mit 10-kWh-Speicher steigt der Eigenverbrauch auf ca. 3.800 kWh/Jahr.
+Eine 5-kWh-PV-Anlage ohne Speicher liefert Eigenverbrauch von 1.500 kWh/Jahr. Mit 10-kWh-Speicher steigt der Eigenverbrauch auf ca. 3.200 kWh/Jahr.
 
-Bei einem Strompreis von 0,35 €/kWh: Ersparnis **ca. 805 €/Jahr** mehr durch Speicher.
+Bei einem Strompreis von 0,35 €/kWh: Ersparnis **ca. 595 €/Jahr** mehr durch Speicher.
 
 Kosten Speicher (10 kWh): ca. 8.000–12.000 €. Amortisation: **10–15 Jahre**.
 
@@ -76,7 +76,7 @@ Oft wird Deutschland unterschätzt. Mit 900–1.200 kWh/kWp Ertrag pro Jahr lieg
 |--------|-----------------|
 | Bayern (Süd) | 1.100–1.200 kWh |
 | Baden-Württemberg | 1.050–1.150 kWh |
-| Sachsen | 1.000–1.100 kWh |
+| Sachsen | 950–1.050 kWh |
 | NRW | 950–1.050 kWh |
 | Hamburg | 920–980 kWh |
 
